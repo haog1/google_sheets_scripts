@@ -41,18 +41,13 @@ function insertDuplicateAndArchive() {
  
   // Update cells with dates
   var today = new Date();
-  var nextMonday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (1 + 7 - today.getDay()) % 7);
-  var days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+  var nextSunday = new Date(today.getFullYear(), today.getMonth(), today.getDate() + (7 - today.getDay()) % 7);
+  var days = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
   var dateFormat = 'dd MMM';
   for (var i = 0; i < days.length; i++) {
-    sheet.getRange(3, 3 + i).setValue(Utilities.formatDate(nextMonday, Session.getScriptTimeZone(), dateFormat));
-    nextMonday.setDate(nextMonday.getDate() + 1);
+    sheet.getRange(DATE_START_COLUMN, DATE_START_COLUMN + i).setValue(Utilities.formatDate(nextSunday, Session.getScriptTimeZone(), dateFormat));
+    nextSunday.setDate(nextSunday.getDate() + 1);
   }
-  // Part 2 updated to prevent repetition and potential errors
-  var thursday = new Date(nextMonday.getTime() - 3 * 24 * 60 * 60 * 1000); // Calculate Thursday based on the corrected nextMonday
-  var friday = new Date(thursday.getTime() + 1 * 24 * 60 * 60 * 1000); // Calculate Friday based on Thursday
-  sheet.getRange(3, 8).setValue(Utilities.formatDate(thursday, Session.getScriptTimeZone(), dateFormat));
-  sheet.getRange(3, 9).setValue(Utilities.formatDate(friday, Session.getScriptTimeZone(), dateFormat));
  
   // Part 3: Copy Rows to Archive and Clear
   var ss = SpreadsheetApp.getActiveSpreadsheet();
