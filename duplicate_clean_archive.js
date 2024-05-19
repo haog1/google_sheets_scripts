@@ -1,5 +1,6 @@
 function insertDuplicateAndArchive() {
   // constants
+  var TABLE_START = 1;
   var TABLE_LENGTH = 15;
   var CHANGABLE_CONTENT_START_ROW= 4;
   var DATE_START_COLUMN = 3;
@@ -12,7 +13,7 @@ function insertDuplicateAndArchive() {
   var numRowsToInsert = TABLE_LENGTH;
   var numRowsToDuplicate = TABLE_LENGTH;
   var startRowToDuplicate = TABLE_LENGTH + 1;
-  var targetRowForDuplication = 1;
+  var targetRowForDuplication = TABLE_START;
   var numCols = sheet.getLastColumn();
  
   // Insert blank rows at the specified position
